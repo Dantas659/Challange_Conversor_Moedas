@@ -10,11 +10,13 @@ import com.google.gson.Gson;
 public class ConversorMoedas {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-          System.out.println("Olá, seja muito bem-vindo ao conversor de moedas!");
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("""
+            Olá, seja muito bem-vindo ao conversor de moedas!
+
+
             Digite o número que corresponde à moeda que você deseja converter:
 
             (1) ARS - Peso argentino
@@ -44,7 +46,7 @@ public class ConversorMoedas {
 
         System.out.println("Digite o valor que deseja converter:");
         double valorParaConverter = scanner.nextDouble();
-        
+
         scanner.close();
 
         String moedaBase = getCodigoMoeda(moedaBaseNumero);
@@ -64,9 +66,8 @@ public class ConversorMoedas {
 
         Gson gson = new Gson();
         ConversorRecord respostaApi = gson.fromJson(response.body(), ConversorRecord.class);
-        System.out.println(respostaApi.conversion_rate());
         double valorConvertido = valorParaConverter * Double.parseDouble(respostaApi.conversion_rate());
-        System.out.println("Resultado da conversão" + valorConvertido);
+        System.out.println("Resultado da conversão: " + valorConvertido);
         
         
     }
