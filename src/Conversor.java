@@ -5,6 +5,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+
 public class Conversor {
     private int moedaBaseNumero;;
     private int moedaConvertidaNumero;
@@ -12,6 +15,7 @@ public class Conversor {
     private String moedaConvertida;
     private double valorParaConverter;
     private double valorConvertido;
+    @SerializedName("conversion_rate")
     private double taxaDeConversao;
 
     public int getMoedaBaseNumero() {
@@ -34,6 +38,11 @@ public class Conversor {
     }
     public double getTaxaDeConversao() {
         return taxaDeConversao;
+    }
+
+    @Override
+    public String toString() {
+        return "Taxa de Conversão: " + taxaDeConversao;
     }
 
     public void menuConvertor() throws IOException, InterruptedException {
@@ -68,6 +77,9 @@ public class Conversor {
         """);
 
         int moedaConvertidaNumero = scanner.nextInt();
+
+        
+
         scanner.close();
 
         // Converter número em sigla
@@ -92,9 +104,10 @@ public class Conversor {
         // Envia a requisição e recebe a resposta
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // Exibe o resultado
-        System.out.println("Resposta da API:");
-        System.out.println(response.body());
+        Gson gson = new Gson();
+        Conversor respostaApi = gson.fromJson(response.body(), Conversor.class);
+        System.out.println(respostaApi);
+        
     }
 
     public static String getCodigoMoeda(int opcao) {
@@ -107,6 +120,10 @@ public class Conversor {
             case 6 -> "USD";
             default -> "EXIT"; // Para sair ou opção inválida
         };
+    }
+
+    public double ConversorMoedas() {
+      return valorConvertido = taxaDeConversao * valorParaConverter; 
     }
 
 
