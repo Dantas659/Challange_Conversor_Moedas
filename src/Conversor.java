@@ -6,7 +6,6 @@ import java.net.http.HttpResponse;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 
 public class Conversor {
     private int moedaBaseNumero;;
@@ -15,7 +14,6 @@ public class Conversor {
     private String moedaConvertida;
     private double valorParaConverter;
     private double valorConvertido;
-    @SerializedName("conversion_rate")
     private double taxaDeConversao;
 
     public int getMoedaBaseNumero() {
@@ -40,10 +38,7 @@ public class Conversor {
         return taxaDeConversao;
     }
 
-    @Override
-    public String toString() {
-        return "Taxa de Conversão: " + taxaDeConversao;
-    }
+   
 
     public void menuConvertor() throws IOException, InterruptedException {
         System.out.println("Olá, seja muito bem-vindo ao conversor de moedas!");

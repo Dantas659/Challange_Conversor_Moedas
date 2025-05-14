@@ -70,8 +70,11 @@ public class ConversorMoedas extends Conversor {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         Gson gson = new Gson();
-        Conversor respostaApi = gson.fromJson(response.body(), Conversor.class);
-        System.out.println(respostaApi);
+        ConversorRecord respostaApi = gson.fromJson(response.body(), ConversorRecord.class);
+        System.out.println(respostaApi.conversion_rate());
+        double valorConvertido = valorParaConverter * Double.parseDouble(respostaApi.conversion_rate());
+        System.out.println("Resultado da conversão" + valorConvertido);
+        
         
     }
 
